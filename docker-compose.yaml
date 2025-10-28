@@ -1,18 +1,24 @@
 services:
   db:
-    image: mongo:latest
+    image: mongo:7.0
+    container_name: blog-mongo
+    restart: unless-stopped
     ports:
       - "27017:27017"
     volumes:
       - db_data:/data/db
+      - db_config:/data/configdb
     environment:
       - MONGO_INITDB_ROOT_USERNAME=admin
-      - MONGO_INITDB_ROOT_PASSWORD=admin
+      - MONGO_INITDB_ROOT_PASSWORD=adminpassword
+      - MONGO_INITDB_DATABASE=blog_mern
     networks:
       - mongo-network
 
   api:
     image: node:latest
+    container_name: blog-api
+    restart: unless-stopped
     ports: 
       - "8005:8005"
     volumes:
@@ -30,3 +36,6 @@ networks:
 
 volumes:
   db_data:
+    driver: local
+  db_config:
+    driver: local
