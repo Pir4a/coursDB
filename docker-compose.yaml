@@ -1,0 +1,32 @@
+services:
+  db:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - db_data:/data/db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=admin
+    networks:
+      - mongo-network
+
+  api:
+    image: node:latest
+    ports: 
+      - "8005:8005"
+    volumes:
+      - .:/api
+    working_dir: /api
+    command: sh -c "npm install && npm run dev"
+    networks:
+      - mongo-network
+    depends_on:
+      - db
+
+networks:
+  mongo-network:
+    driver: bridge
+
+volumes:
+  db_data:

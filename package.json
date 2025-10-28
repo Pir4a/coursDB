@@ -1,0 +1,15 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "API de l'application",
+  "main": "./api/server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon ./api/server.js"
+  },
+  "dependencies": {
+    "express": "^5.1.0"  },
+    "devDependencies": {
+      "nodemon": "^3.1.9"
+    }
+}
