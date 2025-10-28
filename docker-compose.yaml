@@ -29,6 +29,8 @@ services:
       - mongo-network
     depends_on:
       - db
+    env_file:
+      - .env
 
 networks:
   mongo-network:
