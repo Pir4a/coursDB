@@ -12,12 +12,7 @@ async function connectToMongoDB() {
   });
 }
 
-async function closeDB() {
-  await mongoose.connection.close();
-  console.log('Disconnected from MongoDB');
-}
 
 module.exports = {
-  connectToMongoDB,
-  closeDB,
+  connectToMongoDB
 };

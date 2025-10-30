@@ -2,17 +2,24 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 const port = process.env.PORT || 8005;
-const { connectToMongoDB, closeDB } = require('../config/database');
+const { connectToMongoDB } = require('../config/database');
+const articleRoutes = require('../routes/articles');
 
 connectToMongoDB();
 
+// Middleware
+app.use(express.json());
+
+// Routes
 app.get('/', (req, res) => {
   res.json({ 
     message: 'Bienvenue sur l\'API de l\'application',
   });
 });
 
- async function startServer() {
+app.use('/api/articles', articleRoutes);
+
+async function startServer() {
   try {
     await connectToMongoDB();
     app.listen(port, () => {
@@ -20,8 +27,6 @@ app.get('/', (req, res) => {
     });
   } catch (error) {
     console.log(error);
-  } finally {
-    await closeDB();
   }
 }
 startServer();
