@@ -1,0 +1,77 @@
+# Basic GET request
+GET http://localhost:8005/api/articles
+
+###
+
+# Filtering - greater than or equal to (gte)
+GET http://localhost:8005/api/articles?createdAt[gte]=2024-01-01
+
+###
+
+# Filtering - less than (lt)
+GET http://localhost:8005/api/articles?createdAt[lt]=2024-12-31
+
+###
+
+# Filtering - between dates (gte and lte)
+GET http://localhost:8005/api/articles?createdAt[gte]=2024-01-01&createdAt[lte]=2024-12-31
+
+###
+
+# Search in titre and contenu
+GET http://localhost:8005/api/articles?search=javascript
+
+###
+
+# Search with case insensitive matching
+GET http://localhost:8005/api/articles?search=JavaScript
+
+###
+
+# Sorting by creation date (descending)
+GET http://localhost:8005/api/articles?sort=-createdAt
+
+###
+
+# Sorting by multiple fields
+GET http://localhost:8005/api/articles?sort=-createdAt,titre
+
+###
+
+# Field selection - only show specific fields
+GET http://localhost:8005/api/articles?fields=titre,createdAt
+
+###
+
+# Field selection - exclude specific fields
+GET http://localhost:8005/api/articles?fields=-contenu
+
+###
+
+# Pagination - page 1, limit 5
+GET http://localhost:8005/api/articles?page=1&limit=5
+
+###
+
+# Pagination - page 2, limit 10
+GET http://localhost:8005/api/articles?page=2&limit=10
+
+###
+
+# Combined: search + sort + pagination
+GET http://localhost:8005/api/articles?search=react&sort=-createdAt&page=1&limit=5
+
+###
+
+# Combined: filter + search + sort + fields + pagination
+GET http://localhost:8005/api/articles?createdAt[gte]=2024-01-01&search=web&sort=-createdAt&fields=titre,createdAt,contenu&page=1&limit=3
+
+###
+
+# Test edge cases - invalid page (should default to 1)
+GET http://localhost:8005/api/articles?page=0&limit=5
+
+###
+
+# Test edge cases - invalid limit (should default to 10, max 100)
+GET http://localhost:8005/api/articles?page=1&limit=150
